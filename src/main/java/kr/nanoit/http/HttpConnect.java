@@ -1,6 +1,11 @@
+package kr.nanoit.http;
+
+import kr.nanoit.util.EndPoint;
+import kr.nanoit.util.URLMaker;
+import kr.nanoit.util.XmlParser;
 import lombok.extern.slf4j.Slf4j;
-import util.Crypt;
-import util.URLMaker;
+import kr.nanoit.main.TcpClient;
+import kr.nanoit.util.Crypt;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +29,7 @@ public class HttpConnect {
     private String serverResponseData;
 
     private String responseData;
+    private XmlParser xmlParser;
 
     public HttpConnect() throws IOException {
         this.crypt = new Crypt();
@@ -32,9 +38,9 @@ public class HttpConnect {
     }
 
     public void Connection() {
-        String id = Main.configuration.getString("auth.id.1");
-        String password = Main.configuration.getString("auth.password.1");
-        address = Main.configuration.getString("http.url");
+        String id = TcpClient.configuration.getString("auth.id.1");
+        String password = TcpClient.configuration.getString("auth.password.1");
+        address = TcpClient.configuration.getString("http.url");
 
 
         /*
@@ -43,7 +49,8 @@ public class HttpConnect {
 
         try {
             if (password != null) {
-                password = crypt.DataEncrypt(password, Main.configuration.getString("auth.encryptkey.1"));
+                password = crypt.DataEncrypt(password, TcpClient.configuration.getString("auth.encryptkey.1"));
+                EndPoint.setPASSWORD(password);
                 log.info("[HTTPCLIENT] Password Encrypt SUCCESS : {}" , password);
             } else {
                 log.warn("[HTTPCLIENT] Password encryption FAILED");
@@ -69,16 +76,27 @@ public class HttpConnect {
                 log.info("[HTTPCLIENT] HttpCommunication FAILD");
                 e.printStackTrace();
             }
+
             bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
 
+            /*
+            * BufferedReader로 한줄씩 responeseData에 읽어오고 StringBuiler에 append
+            */
+
             while ((responseData = bufferedReader.readLine()) != null) {
-                 sb.append(responseData);
+                sb.append(responseData);
             }
             serverResponseData = sb.toString();
-
-
             log.info("[HTTPCLIENT] Value sent by server  : {} " , serverResponseData);
+
+
+            /*
+            * XML Parsing
+            */
+            xmlParser = new XmlParser(serverResponseData);
+            xmlParser.tst();
+
 
 
         } catch (Exception e) {

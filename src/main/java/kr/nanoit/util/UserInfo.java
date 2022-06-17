@@ -1,4 +1,4 @@
-package util;
+package kr.nanoit.util;
 
 import lombok.Getter;
 import lombok.Setter;

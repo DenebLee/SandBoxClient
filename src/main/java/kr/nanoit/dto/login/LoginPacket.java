@@ -1,4 +1,4 @@
-package kr.nanoit.education.domain;
+package kr.nanoit.dto.login;
 
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ public class LoginPacket {
     //LOGIN 패킷을 만드는 메소드
     private String makeLoginPacket(String id, String password, String Version) {
 
-        return makeLoginPacketHeader().concat(makeLoginPacketBody(id, password, Version));
+        return makeLoginPacketHeader().concat(makeLoginPacketBody(id, password, Version));//concat는 두개를 더할수 있는 메소드임( + 연산자는 보안에 위험하다고 함)
     }
 
     //LOGIN 패킷에 헤더 부분을 만드는 메소드

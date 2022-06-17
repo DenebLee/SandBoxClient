@@ -1,2 +1,6 @@
-package kr.nanoit.encode;public class EncodeMessageService {
+package kr.nanoit.encode;
+
+public class EncodeMessageService {
+
+
 }

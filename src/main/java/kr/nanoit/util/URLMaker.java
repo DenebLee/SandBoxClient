@@ -1,4 +1,4 @@
-package util;
+package kr.nanoit.util;
 
 
 import java.net.URLEncoder;

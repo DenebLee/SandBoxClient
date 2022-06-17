@@ -1,4 +1,4 @@
-package dto.message_Structure;
+package kr.nanoit.dto.message_Structure;
 
 public class IndexHeader {
     /**

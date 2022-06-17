@@ -1,11 +1,10 @@
-package util;
+package kr.nanoit.socket;
 
-import dto.message_Structure.IndexHeader;
-import dto.message_Structure.LengthHeader;
-import dto.message_Structure.MessageService;
-import dto.message_Structure.PacketType;
+import kr.nanoit.dto.message_Structure.IndexHeader;
+import kr.nanoit.dto.message_Structure.LengthHeader;
+import kr.nanoit.dto.message_Structure.MessageService;
+import kr.nanoit.dto.message_Structure.PacketType;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -22,30 +21,13 @@ public class SocketUtil extends SocketConfig {
 
     @Getter
     LinkedBlockingQueue<MessageService> queue_for_Receive;
-    /**
-     * 응답 받기 위한 큐
-     */
-
-    @Getter
-    LinkedBlockingQueue<MessageService> queue_for_Report;
-    @Getter
-    @Setter
-    private String packet_login_id;
-    @Getter
-    @Setter
-    private String packet_login_password;
-    @Getter
-    @Setter
-    private String packet_login_version;
 
     public SocketUtil(Socket socket) throws IOException {
         super();
         setSocket(socket);
         queue_for_Send = new LinkedBlockingQueue<>();
         queue_for_Receive = new LinkedBlockingQueue<>();
-        queue_for_Report = new LinkedBlockingQueue<>();
     }
-
 
     public byte[] receiveByte() throws Exception {
         synchronized (receiveLock) {
@@ -76,19 +58,11 @@ public class SocketUtil extends SocketConfig {
             }
             return receiveData;
         }
-
     }
-
-
 
     public PacketType getPacketType(byte[] byteOfReceiveData) throws Exception {
         return PacketType.fromPropertyName(new String(byteOfReceiveData, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE_INDEX, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE).trim());
     }
-
-
-
-
-
 
 
 }
