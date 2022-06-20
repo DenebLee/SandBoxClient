@@ -1,6 +1,10 @@
 package kr.nanoit.main;
 
+import kr.nanoit.client.DbSearching;
+import kr.nanoit.client.ReceivePacket;
+import kr.nanoit.client.SendPacket;
 import kr.nanoit.dto.login.LoginPacketSend;
+import kr.nanoit.dto.send.SmsMessageService;
 import kr.nanoit.http.HttpConnect;
 import kr.nanoit.socket.SocketUtil;
 import kr.nanoit.util.EndPoint;
@@ -55,14 +59,22 @@ public class TcpClient {
             loginPacketSend.Login_PK_Send();
 
 
-//            Thread thread = new Thread(new SendPacket(socketUtil));
-//            thread.setName("Send-Thread");
+            SmsMessageService smsMessageService = new SmsMessageService();
+
+
+            Thread thread = new Thread(new DbSearching(socketUtil,smsMessageService));
+            thread.setName("MakePacket-Thread");
 //
-//            Thread thread2 = new Thread(new ReceivePacket(socketUtil));
-//            thread.setName("Receive-Thread");
+            Thread thread2 = new Thread(new ReceivePacket(socketUtil));
+            thread2.setName("Receive-Thread");
+
+            Thread thread3 = new Thread(new SendPacket(socketUtil, smsMessageService));
+            thread3.setName("Send-Thread");
 //
-//            thread.start();
-//            thread2.start();
+            thread.start();
+            thread2.start();
+            thread3.start();
+
 //
 //            Runtime.getRuntime().addShutdownHook(new Thread(() -> log.info("[HTTPCLIENT] STOP {}", SIMPLE_DATE_FORMAT.format(new Date()))));
         } catch (Exception e) {

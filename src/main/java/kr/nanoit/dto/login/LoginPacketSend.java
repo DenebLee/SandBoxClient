@@ -28,10 +28,9 @@ public class LoginPacketSend {
 
         try {
             if (socketUtil.write(loginPacket.login(ID, PASSWORD, VERSION))){
-
-            log.info("[HTTPCLIENT] LOGIN_PACKET SEND [SUCCESS] ID : {} PASSWORD : {} VERSION : {}", ID, PASSWORD, VERSION);}
+            log.info("[HTTPCLIENT] LOGIN_PACKET SEND [SUCCESS] ID : {} PASSWORD : {} VERSION : {} ", ID, PASSWORD, VERSION);}
         } catch (Exception e) {
-            log.warn("[HTTPCLIENT] LOGIN_PACKET SEND [FAIL]");
+            log.warn("[HTTPCLIENT] LOGIN_PACKET SEND [FAIL]", e);
 
         }
     }

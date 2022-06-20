@@ -2,13 +2,13 @@ package kr.nanoit.dto.message_Structure;
 
 public enum PacketType {
 
-    LOGIN("LOGIN"),
 
     LOGIN_ACKNOWLEDGEMENT("LOGIN_ACK"),
 
-    SEND("SEND"),
 
     SEND_ACKNOWLEDGEMENT("SEND_ACK"),
+
+    SEND("SEND"),
 
     REPORT("REPORT"),
 

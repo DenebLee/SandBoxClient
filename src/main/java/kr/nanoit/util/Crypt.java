@@ -38,7 +38,6 @@ public class Crypt {
     private byte[] getBytesKeyByLength(String enckey) {
 
         byte[] byteKey = enckey.getBytes(StandardCharsets.UTF_8);
-        log.info("ByteKey : " + byteKey);
         if (byteKey.length < KEY_MAX_LENGTH) {
             return byteKey;
         } else {
@@ -58,8 +57,9 @@ public class Crypt {
 
     }
 
-    public String MessageDataEncrypt(String data) throws Exception {
+    public String MessageDataEncrypt(String data, String enckey) throws Exception {
 
+        initialize(enckey);
         Cipher cipher = Cipher.getInstance(AES_CBC_PKCS_5_PADDING);
         cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
         return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));

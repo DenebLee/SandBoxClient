@@ -33,11 +33,11 @@ public class SocketUtil extends SocketConfig {
         synchronized (receiveLock) {
             byte[] header;
             byte[] body;
-            header = read(IndexHeader.COMMON_INDEX_HEADER_FULL_LENGTH);
+            header = read(IndexHeader.INDEX_HEADER_FULL_LENGTH);
             if (header == null)
                 return null;
 //            System.out.println(new String(header));
-            String bodyLen = new String(header, IndexHeader.COMMON_INDEX_HEADER_BODY_LEN, LengthHeader.COMMON_LENGTH_HEADER_BODY_LEN).trim();
+            String bodyLen = new String(header, IndexHeader.INDEX_HEADER_BODY_LEN, LengthHeader.LENGTH_HEADER_BODY_LEN).trim();
 
             byte[] receiveData; // byte[] 선언
             if (bodyLen != null && !bodyLen.equals("")) {
@@ -61,7 +61,7 @@ public class SocketUtil extends SocketConfig {
     }
 
     public PacketType getPacketType(byte[] byteOfReceiveData) throws Exception {
-        return PacketType.fromPropertyName(new String(byteOfReceiveData, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE_INDEX, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE).trim());
+        return PacketType.fromPropertyName(new String(byteOfReceiveData, LengthHeader.LENGTH_HEADER_PACKET_TYPE_INDEX, LengthHeader.LENGTH_HEADER_PACKET_TYPE).trim());
     }
 
 
