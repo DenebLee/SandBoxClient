@@ -4,6 +4,7 @@ public enum PacketType {
 
 
     LOGIN_ACKNOWLEDGEMENT("LOGIN_ACK"),
+    LOGIN("LOGIN"),
 
 
     SEND_ACKNOWLEDGEMENT("SEND_ACK"),

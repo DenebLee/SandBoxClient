@@ -12,7 +12,12 @@ import lombok.ToString;
 public class SmsMessageService implements MessageService {
 
     private MessageType messageServiceType;
+    private String serverMessageId;
+    private String send_time;
     private String protocol;
+
+
+    private String result_code;
     private String message_id;
     private String receive_number;
     private String callback_number;

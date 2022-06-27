@@ -51,9 +51,9 @@ public class HttpConnect {
             if (password != null) {
                 password = crypt.DataEncrypt(password, TcpClient.configuration.getString("auth.encryptkey.1"));
                 EndPoint.setPASSWORD(password);
-                log.info("[HTTPCLIENT] Password Encrypt SUCCESS : {}" , password);
+                log.info("[HTTP_CLIENT] Password Encrypt SUCCESS : '{}'" , password);
             } else {
-                log.warn("[HTTPCLIENT] Password encryption FAILED");
+                log.warn("[HTTP_CLIENT] Password encryption FAILED");
             }
 
 
@@ -68,12 +68,12 @@ public class HttpConnect {
                 startHttp();
                 System.out.println("");
                 System.out.println("");
-                log.info("[HTTPCLIENT] HttpCommunication START");
+                log.info("[HTTP_CLIENT] HttpCommunication START");
                 System.out.println("");
                 System.out.println("");
             } catch (Exception e) {
                 stopHttp();
-                log.info("[HTTPCLIENT] HttpCommunication FAILD");
+                log.info("[HTTP_CLIENT] HttpCommunication FAILED");
                 e.printStackTrace();
             }
 
@@ -81,14 +81,14 @@ public class HttpConnect {
 
 
             /*
-            * BufferedReader로 한줄씩 responeseData에 읽어오고 StringBuiler에 append
+            * BufferedReader 로 한줄씩 responseData 에 읽어오고 StringBuilder 에 append
             */
 
             while ((responseData = bufferedReader.readLine()) != null) {
                 sb.append(responseData);
             }
             serverResponseData = sb.toString();
-            log.info("[HTTPCLIENT] Value sent by server  : {} " , serverResponseData);
+            log.info("[HTTP_CLIENT] Value sent by server  : '{}' " , serverResponseData);
 
 
             /*
@@ -108,8 +108,8 @@ public class HttpConnect {
         try {
             conn.setRequestMethod("POST");
             conn.connect();
-            log.info("[HTTPCLIENT] Http Request Type : {} Request Address : {} Request Data : {} ",conn.getRequestMethod(),address,queryString);
-            log.info("[HTTPCLIENT] Http ResponseCode : {} ", conn.getResponseCode());
+            log.info("[HTTP_CLIENT] Http Request Type : '{}' Request Address : '{}' Request Data : '{}' ",conn.getRequestMethod(),address,queryString);
+            log.info("[HTTP_CLIENT] Http ResponseCode : '{}' ", conn.getResponseCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +118,7 @@ public class HttpConnect {
     public void stopHttp() {
         try {
             conn.disconnect();
-            log.info("[HTTPCLIENT] HttpClient Disconnect");
+            log.info("[HTTP_CLIENT] HttpClient Disconnect");
         } catch (Exception e) {
             e.printStackTrace();
         }

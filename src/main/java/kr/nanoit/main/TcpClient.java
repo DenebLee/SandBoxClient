@@ -62,10 +62,12 @@ public class TcpClient {
             SmsMessageService smsMessageService = new SmsMessageService();
 
 
+
+
             Thread thread = new Thread(new DbSearching(socketUtil,smsMessageService));
             thread.setName("MakePacket-Thread");
 //
-            Thread thread2 = new Thread(new ReceivePacket(socketUtil));
+            Thread thread2 = new Thread(new ReceivePacket(socketUtil, smsMessageService));
             thread2.setName("Receive-Thread");
 
             Thread thread3 = new Thread(new SendPacket(socketUtil, smsMessageService));

@@ -26,7 +26,6 @@ public class XmlParser {
     private NodeList List = null;
     private Map<String, String> parsedData = new HashMap<>();
     private String xmlString;
-    private final EndPoint endPoint;
 
 
     /**
@@ -34,7 +33,6 @@ public class XmlParser {
      */
 
     public XmlParser(String value) throws IOException {
-        endPoint = new EndPoint();
         this.xmlString = value;
     }
 
@@ -65,9 +63,9 @@ public class XmlParser {
     public void tst(){
         try {
            Map<String,String> test =  parsing();
-            endPoint.setIP(test.get("ip"));
-            endPoint.setPORT(test.get("port"));
-            log.info("[HTTPCLIENT] XML PARSING COMPLETE IP : {} PORT : {}", endPoint.getIP(),endPoint.getPORT() );
+            EndPoint.setIP(test.get("ip"));
+            EndPoint.setPORT(test.get("port"));
+            log.info("[HTTP_CLIENT] XML PARSING COMPLETE IP : '{}' PORT : '{}'", EndPoint.getIP(), EndPoint.getPORT() );
 
         } catch (Exception e) {
             System.out.println("Parsing Exception Err : " + e);

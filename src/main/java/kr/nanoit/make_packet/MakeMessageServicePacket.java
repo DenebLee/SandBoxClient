@@ -1,4 +1,4 @@
-package kr.nanoit.encode;
+package kr.nanoit.make_packet;
 
 import kr.nanoit.dto.message_Structure.IndexHeader;
 import kr.nanoit.dto.message_Structure.PacketType;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import static kr.nanoit.dto.message_Structure.LengthHeader.LENGTH_HEADER_PACKET_TYPE_INDEX;
 
-public class EncodeMessageService {
+public class MakeMessageServicePacket {
     public byte[] EncodeSms(SmsMessageService smsMessageService) {
         byte[] data = new byte[IndexSend.INDEX_SEND_FULL];
 
@@ -18,7 +18,7 @@ public class EncodeMessageService {
         /*
          * Header
          */
-        System.arraycopy(PacketType.REPORT.getBytes(), 0, data, LENGTH_HEADER_PACKET_TYPE_INDEX, PacketType.SEND.getBytes().length);
+        System.arraycopy(PacketType.SEND.getBytes(), 0, data, LENGTH_HEADER_PACKET_TYPE_INDEX, PacketType.SEND.getBytes().length);
         System.arraycopy(bodySize.getBytes(), 0, data, IndexHeader.INDEX_HEADER_BODY_LEN, bodySize.getBytes().length);
 
         /*
