@@ -1,15 +1,14 @@
-package kr.nanoit.dto.message_Structure;
+package kr.nanoit.message_Structure;
 
 public enum PacketType {
 
-
-    LOGIN_ACKNOWLEDGEMENT("LOGIN_ACK"),
     LOGIN("LOGIN"),
 
-
-    SEND_ACKNOWLEDGEMENT("SEND_ACK"),
+    LOGIN_ACKNOWLEDGEMENT("LOGIN_ACK"),
 
     SEND("SEND"),
+
+    SEND_ACKNOWLEDGEMENT("SEND_ACK"),
 
     REPORT("REPORT"),
 

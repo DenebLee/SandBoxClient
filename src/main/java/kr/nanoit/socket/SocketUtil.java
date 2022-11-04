@@ -1,9 +1,10 @@
 package kr.nanoit.socket;
 
-import kr.nanoit.dto.message_Structure.IndexHeader;
-import kr.nanoit.dto.message_Structure.LengthHeader;
-import kr.nanoit.dto.message_Structure.MessageService;
-import kr.nanoit.dto.message_Structure.PacketType;
+import kr.nanoit.message.ClientMessageDto;
+import kr.nanoit.message.ReceiveMessage;
+import kr.nanoit.message_Structure.IndexHeader;
+import kr.nanoit.message_Structure.LengthHeader;
+import kr.nanoit.message_Structure.PacketType;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -14,13 +15,13 @@ public class SocketUtil extends SocketConfig {
 
     private final Object receiveLock = new Object();
     @Getter
-    LinkedBlockingQueue<MessageService> queue_for_Send;
+    LinkedBlockingQueue<ClientMessageDto> queue_for_Send;
     /**
      * 응답 받기 위한 큐
      */
 
     @Getter
-    LinkedBlockingQueue<MessageService> queue_for_Receive;
+    LinkedBlockingQueue<ReceiveMessage> queue_for_Receive;
 
     public SocketUtil(Socket socket) throws IOException {
         super();
@@ -33,11 +34,11 @@ public class SocketUtil extends SocketConfig {
         synchronized (receiveLock) {
             byte[] header;
             byte[] body;
-            header = read(IndexHeader.INDEX_HEADER_FULL_LENGTH);
+            header = read(IndexHeader.COMMON_INDEX_HEADER_FULL_LENGTH);
             if (header == null)
                 return null;
 //            System.out.println(new String(header));
-            String bodyLen = new String(header, IndexHeader.INDEX_HEADER_BODY_LEN, LengthHeader.LENGTH_HEADER_BODY_LEN).trim();
+            String bodyLen = new String(header, IndexHeader.COMMON_INDEX_HEADER_BODY_LEN, LengthHeader.COMMON_LENGTH_HEADER_BODY_LEN).trim();
 
             byte[] receiveData; // byte[] 선언
             if (bodyLen != null && !bodyLen.equals("")) {
@@ -61,7 +62,7 @@ public class SocketUtil extends SocketConfig {
     }
 
     public PacketType getPacketType(byte[] byteOfReceiveData) throws Exception {
-        return PacketType.fromPropertyName(new String(byteOfReceiveData, LengthHeader.LENGTH_HEADER_PACKET_TYPE_INDEX, LengthHeader.LENGTH_HEADER_PACKET_TYPE).trim());
+        return PacketType.fromPropertyName(new String(byteOfReceiveData, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE_INDEX, LengthHeader.COMMON_LENGTH_HEADER_PACKET_TYPE).trim());
     }
 
 

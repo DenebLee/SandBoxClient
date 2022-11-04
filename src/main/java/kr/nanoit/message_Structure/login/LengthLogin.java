@@ -1,17 +1,17 @@
-package kr.nanoit.dto.login;
+package kr.nanoit.message_Structure.login;
 
 
 class LengthLogin {/* LengthLogin */
     /**
      * The Common length login id.
      */
-    static int LENGTH_LOGIN_ID = 100;
+    static int COMMON_LENGTH_LOGIN_ID = 100;
     /**
      * The Common length login password.
      */
-    static int LENGTH_LOGIN_PASSWORD = 100;
+    static int COMMON_LENGTH_LOGIN_PASSWORD = 100;
     /**
      * The Common length login version.
      */
-    static int LENGTH_LOGIN_VERSION = 100;
+    static int COMMON_LENGTH_LOGIN_VERSION = 100;
 }
